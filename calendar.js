@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
         selectable: true,
         selectMirror: true,
         navLinks: true, // can click day/week names to navigate views
-        editable: true,
+        // editable: true,
         businessHours: true, // display business hours
         selectable: true,
         
@@ -30,9 +30,9 @@ document.addEventListener('DOMContentLoaded', function() {
             calendar.unselect()
         },
         eventClick: function(arg) {
-            if (confirm('Are you sure you want to delete this event?')) {
+            /* if (confirm('Are you sure you want to delete this event?')) {
                 arg.event.remove()
-            }
+            } */
         },
         datesSet: function(info) {
             const currentMonth = new Date().getMonth();
@@ -53,6 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 prevBtn.disabled = false;
             }
         },
+        
         dayMaxEvents: true, // allow "more" link when too many events
         // 이벤트 객체 필드 document : https://fullcalendar.io/docs/event-object
         events: [
@@ -111,6 +112,30 @@ document.addEventListener('DOMContentLoaded', function() {
             start: '2024-09-28'
             }
         ],
+
+        // tooltip 이벤트
+        /* eventDidMount: function(info) {
+            tippy(info.el, {
+                content: info.event._def.title,
+                placement: "bottom",
+                offset: [0, 0],
+                interactive: true,
+            })
+        } */
+        eventDidMount: function(info) {
+            tippy(info.el, {
+                // content: '<strong>' + info.event.title + '</strong><p><span><i class="fa-regular fa-clock-three"></i> 일정</span>' + startDate + endDate + '<br />'+timeDate+'</p>' + descriptionList,
+                content: '<strong>' + info.event.title + '</strong>',
+                placement : 'bottom',
+                theme: 'light',
+                arrow: true,
+                trigger: 'click',
+                allowHTML: true,
+                animation: 'fade',
+                interactive: true,
+                // hideOnClick: false,
+            });
+        },
     });
     calendar.render();
 });
